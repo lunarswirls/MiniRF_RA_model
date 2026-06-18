@@ -1,0 +1,414 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2870
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww24420\viewh15320\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\
+CPR only\
+\
+RA prediction evaluation summary\
+--------------------------------\
+N valid pixels: 381944\
+RMSE: 1.2929\
+Median absolute error: 0.1336\
+Median bias: -0.0091\
+P90 absolute error: 0.5003\
+Balanced RMSE: 2.0067\
+High-RA F1 at threshold 1.50%: 0.5820\
+Global Spearman: 0.26\
+Global Pearson: 0.35\
+\
+Spatial roughness metrics:\
+True median roughness: 0.0772\
+Pred median roughness: 0.0299\
+Pred/true median roughness ratio: 0.3870\
+True roughness percentiles [50 75 90 95]: 0.0772 0.1397 0.2112 0.2642 \
+Pred roughness percentiles [50 75 90 95]: 0.0299 0.0967 0.2367 0.3524 \
+Pred/true roughness percentile ratios [50 75 90 95]: 0.3870 0.6922 1.1207 1.3338 \
+\
+Regime metrics:\
+       Regime           N         RAmin    RAmax     RMSE      MAE_median    Bias_median    Bias_mean    P90_absErr    RobustSigma    Coverage68    Width68_median    FracErr_median     Pearson      Spearman \
+    ____________    __________    _____    _____    _______    __________    ___________    _________    __________    ___________    __________    ______________    ______________    _________    __________\
+\
+    "Low RA"         1.509e+05       0     0.35     0.27375     0.097839      -0.097839      -0.16127     0.42939         0.1484         NaN             NaN             0.28639        0.0098345      0.007074\
+    "Transition"    2.1993e+05    0.35        1      0.2881      0.14568        0.08098     -0.010583     0.44807          0.181         NaN             NaN             0.25872          0.36111       0.23808\
+    "High RA1"            5847       1        3     0.67162      0.41579        0.22759        0.2933      1.1091        0.62483         NaN             NaN              0.2721          0.20141       0.19655\
+    "High RA2"            1388       3        5      2.4491       2.3369         2.3369        2.3603      3.1782        0.69091         NaN             NaN             0.56952          0.14619       0.16793\
+    "High RA3"            2650       5       12      6.3509       5.6545         5.6545        6.0424      9.0833         2.2798         NaN             NaN             0.75122        -0.031365    -0.0046717\
+\
+%%%%%%%%%%%%\
+Green only\
+\
+RA prediction evaluation summary\
+--------------------------------\
+N valid pixels: 381944\
+RMSE: 1.1049\
+Median absolute error: 0.1584\
+Median bias: -0.0846\
+P90 absolute error: 0.7113\
+Balanced RMSE: 2.0928\
+High-RA F1 at threshold 1.50%: 0.4971\
+Global Spearman: 0.36\
+Global Pearson: 0.63\
+\
+Spatial roughness metrics:\
+True median roughness: 0.0772\
+Pred median roughness: 0.0382\
+Pred/true median roughness ratio: 0.4951\
+True roughness percentiles [50 75 90 95]: 0.0772 0.1397 0.2112 0.2642 \
+Pred roughness percentiles [50 75 90 95]: 0.0382 0.1035 0.2221 0.3378 \
+Pred/true roughness percentile ratios [50 75 90 95]: 0.4951 0.7407 1.0517 1.2784 \
+\
+Regime metrics:\
+       Regime           N         RAmin    RAmax     RMSE      MAE_median    Bias_median    Bias_mean    P90_absErr    RobustSigma    Coverage68    Width68_median    FracErr_median    Pearson    Spearman\
+    ____________    __________    _____    _____    _______    __________    ___________    _________    __________    ___________    __________    ______________    ______________    _______    ________\
+\
+    "Low RA"         1.509e+05       0     0.35     0.40894     0.13488        -0.13488     -0.22333      0.58846        0.19276         NaN             NaN              0.4058        0.04832    0.071994\
+    "Transition"    2.1993e+05    0.35        1     0.64741     0.16403       -0.015888     -0.17473      0.68983         0.3251         NaN             NaN             0.28589        0.31248     0.29077\
+    "High RA1"            5847       1        3      2.9681     0.53991       -0.064969      -1.1176       6.9427        0.90468         NaN             NaN             0.34233        0.19198     0.21152\
+    "High RA2"            1388       3        5      3.6664      2.6705       -0.045108      -1.3193       5.6949         5.0337         NaN             NaN             0.61893        0.14074     0.18089\
+    "High RA3"            2650       5       12      2.7729      2.1605        -0.15743       0.1043       4.1305         3.1883         NaN             NaN             0.26727        0.21199     0.19578\
+\
+%%%%%%%%%%%%%%%%%%%%%\
+CPR + Green with S = 0.5 \
+\
+RA prediction evaluation summary\
+--------------------------------\
+N valid pixels: 381944\
+RMSE: 1.1863\
+Median absolute error: 0.2178\
+Median bias: 0.0998\
+P90 absolute error: 0.4671\
+Balanced RMSE: 1.9375\
+High-RA F1 at threshold 1.50%: 0.6799\
+Global Spearman: 0.29\
+Global Pearson: 0.51\
+\
+Spatial roughness metrics:\
+True median roughness: 0.0772\
+Pred median roughness: 0.0208\
+Pred/true median roughness ratio: 0.2695\
+True roughness percentiles [50 75 90 95]: 0.0772 0.1397 0.2112 0.2642 \
+Pred roughness percentiles [50 75 90 95]: 0.0208 0.0861 0.1809 0.2541 \
+Pred/true roughness percentile ratios [50 75 90 95]: 0.2695 0.6164 0.8566 0.9616 \
+\
+Regime metrics:\
+       Regime           N         RAmin    RAmax     RMSE      MAE_median    Bias_median    Bias_mean    P90_absErr    RobustSigma    Coverage68    Width68_median    FracErr_median    Pearson     Spearman\
+    ____________    __________    _____    _____    _______    __________    ___________    _________    __________    ___________    __________    ______________    ______________    ________    ________\
+\
+    "Low RA"         1.509e+05       0     0.35     0.24039     0.17962         0.0273      -0.020225     0.33675        0.26396         NaN             NaN              0.5035        0.019335    0.024489\
+    "Transition"    2.1993e+05    0.35        1     0.34637     0.28005        0.14854        0.10833     0.47268        0.30155         NaN             NaN             0.50371         0.36393     0.26419\
+    "High RA1"            5847       1        3      1.4584     0.44549        0.30572       0.063508      1.4915        0.54219         NaN             NaN             0.29085         0.19177     0.24453\
+    "High RA2"            1388       3        5      2.6022      2.4753         2.0794         1.1719      3.4693         1.0199         NaN             NaN             0.59005          0.1052     0.19127\
+    "High RA3"            2650       5       12      5.0401      4.2494         4.2494          4.101      7.9019         2.6322         NaN             NaN              0.6715         0.16066     0.14441\
+\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\
+\
+CPR + Green with s = 1.5 \
+\
+\
+RA prediction evaluation summary\
+--------------------------------\
+N valid pixels: 381944\
+RMSE: 1.1779\
+Median absolute error: 0.2164\
+Median bias: 0.1094\
+P90 absolute error: 0.4686\
+Balanced RMSE: 1.9403\
+High-RA F1 at threshold 1.50%: 0.6788\
+Global Spearman: 0.26\
+Global Pearson: 0.52\
+\
+Spatial roughness metrics:\
+True median roughness: 0.0772\
+Pred median roughness: 0.0226\
+Pred/true median roughness ratio: 0.2922\
+True roughness percentiles [50 75 90 95]: 0.0772 0.1397 0.2112 0.2642 \
+Pred roughness percentiles [50 75 90 95]: 0.0226 0.0960 0.2019 0.2744 \
+Pred/true roughness percentile ratios [50 75 90 95]: 0.2922 0.6873 0.9559 1.0386 \
+\
+Regime metrics:\
+       Regime           N         RAmin    RAmax     RMSE      MAE_median    Bias_median    Bias_mean    P90_absErr    RobustSigma    Coverage68    Width68_median    FracErr_median    Pearson    Spearman\
+    ____________    __________    _____    _____    _______    __________    ___________    _________    __________    ___________    __________    ______________    ______________    _______    ________\
+\
+    "Low RA"         1.509e+05       0     0.35     0.24311     0.17835        0.02807      -0.018853     0.33693        0.26079         NaN             NaN             0.50322        0.01262    0.01084 \
+    "Transition"    2.1993e+05    0.35        1     0.36315      0.2797        0.16337        0.11834     0.47263        0.28265         NaN             NaN             0.48777        0.34433    0.24336 \
+    "High RA1"            5847       1        3      1.6306     0.48534        0.33467       0.007398      1.7113        0.57742         NaN             NaN             0.31311        0.18555    0.22316 \
+    "High RA2"            1388       3        5      2.6839      2.5395         2.0405        0.93428      3.6154         3.5225         NaN             NaN             0.60227        0.12582    0.18637 \
+    "High RA3"            2650       5       12      4.7806      3.9352         3.9352         3.6276      7.7061         3.4279         NaN             NaN             0.63751        0.13833    0.12717 \
+\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\
+\
+CPR + Green with s = 0.25 \
+\
+RA prediction evaluation summary\
+--------------------------------\
+N valid pixels: 381944\
+RMSE: 1.1936\
+Median absolute error: 0.2179\
+Median bias: 0.1146\
+P90 absolute error: 0.4717\
+Balanced RMSE: 1.9774\
+High-RA F1 at threshold 1.50%: 0.6632\
+Global Spearman: 0.25\
+Global Pearson: 0.51\
+\
+Spatial roughness metrics:\
+True median roughness: 0.0772\
+Pred median roughness: 0.0244\
+Pred/true median roughness ratio: 0.3156\
+True roughness percentiles [50 75 90 95]: 0.0772 0.1397 0.2112 0.2642 \
+Pred roughness percentiles [50 75 90 95]: 0.0244 0.1002 0.2056 0.2789 \
+Pred/true roughness percentile ratios [50 75 90 95]: 0.3156 0.7173 0.9734 1.0556 \
+\
+Regime metrics:\
+       Regime           N         RAmin    RAmax     RMSE      MAE_median    Bias_median    Bias_mean    P90_absErr    RobustSigma    Coverage68    Width68_median    FracErr_median     Pearson     Spearman\
+    ____________    __________    _____    _____    _______    __________    ___________    _________    __________    ___________    __________    ______________    ______________    _________    ________\
+\
+    "Low RA"         1.509e+05       0     0.35     0.24454     0.17748        0.02875      -0.019629     0.34071        0.25901         NaN             NaN             0.50221        0.0092526    0.006244\
+    "Transition"    2.1993e+05    0.35        1     0.34929     0.28093         0.1749        0.12349     0.47444        0.27656         NaN             NaN             0.49423          0.34634     0.23512\
+    "High RA1"            5847       1        3      1.4999     0.48276        0.33848       0.080064      1.5675         0.5995         NaN             NaN             0.31116          0.18957     0.21528\
+    "High RA2"            1388       3        5      2.6807      2.5575         2.1295          1.196      3.5929          1.086         NaN             NaN             0.60277         0.099789     0.17134\
+    "High RA3"            2650       5       12      5.1126      4.3051         4.3051         4.1196      8.0471         2.7838         NaN             NaN             0.68002          0.15221     0.13323\
+\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\
+\
+CPR + Green with s = 1.5 rtransition = 4.5\
+\
+RA prediction evaluation summary\
+--------------------------------\
+N valid pixels: 381944\
+RMSE: 1.1904\
+Median absolute error: 0.2178\
+Median bias: 0.1139\
+P90 absolute error: 0.4711\
+Balanced RMSE: 1.9642\
+High-RA F1 at threshold 1.50%: 0.6678\
+Global Spearman: 0.26\
+Global Pearson: 0.51\
+\
+Spatial roughness metrics:\
+True median roughness: 0.0772\
+Pred median roughness: 0.0241\
+Pred/true median roughness ratio: 0.3119\
+True roughness percentiles [50 75 90 95]: 0.0772 0.1397 0.2112 0.2642 \
+Pred roughness percentiles [50 75 90 95]: 0.0241 0.0993 0.2043 0.2774 \
+Pred/true roughness percentile ratios [50 75 90 95]: 0.3119 0.7110 0.9675 1.0500 \
+\
+Regime metrics:\
+       Regime           N         RAmin    RAmax     RMSE      MAE_median    Bias_median    Bias_mean    P90_absErr    RobustSigma    Coverage68    Width68_median    FracErr_median     Pearson     Spearman \
+    ____________    __________    _____    _____    _______    __________    ___________    _________    __________    ___________    __________    ______________    ______________    _________    _________\
+\
+    "Low RA"         1.509e+05       0     0.35     0.24457     0.17769       0.029043      -0.019431     0.34008        0.25926         NaN             NaN             0.50232        0.0097186    0.0068109\
+    "Transition"    2.1993e+05    0.35        1     0.35232     0.28088         0.1734        0.12275     0.47424        0.27766         NaN             NaN              0.4947          0.34583      0.23632\
+    "High RA1"            5847       1        3      1.5101     0.48232        0.33888       0.072822      1.5884        0.59376         NaN             NaN             0.31224          0.19007      0.21723\
+    "High RA2"            1388       3        5      2.6698      2.5501         2.1192         1.1596      3.5784         1.0943         NaN             NaN             0.60262          0.10125      0.17021\
+    "High RA3"            2650       5       12      5.0441      4.2328         4.2328         4.0389      7.9555         2.9028         NaN             NaN             0.67423          0.15543      0.13856\
+\
+\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\
+\
+CPR + Green with s = 1.5, rtransition = 2.5\
+\
+RA prediction evaluation summary\
+--------------------------------\
+N valid pixels: 381944\
+RMSE: 1.1621\
+Median absolute error: 0.2148\
+Median bias: 0.1049\
+P90 absolute error: 0.4655\
+Balanced RMSE: 1.8947\
+High-RA F1 at threshold 1.50%: 0.6842\
+Global Spearman: 0.27\
+Global Pearson: 0.54\
+\
+Spatial roughness metrics:\
+True median roughness: 0.0772\
+Pred median roughness: 0.0210\
+Pred/true median roughness ratio: 0.2713\
+True roughness percentiles [50 75 90 95]: 0.0772 0.1397 0.2112 0.2642 \
+Pred roughness percentiles [50 75 90 95]: 0.0210 0.0922 0.2031 0.2768 \
+Pred/true roughness percentile ratios [50 75 90 95]: 0.2713 0.6599 0.9615 1.0476 \
+\
+Regime metrics:\
+       Regime           N         RAmin    RAmax     RMSE      MAE_median    Bias_median    Bias_mean    P90_absErr    RobustSigma    Coverage68    Width68_median    FracErr_median    Pearson     Spearman\
+    ____________    __________    _____    _____    _______    __________    ___________    _________    __________    ___________    __________    ______________    ______________    ________    ________\
+\
+    "Low RA"         1.509e+05       0     0.35     0.24366     0.17858        0.02733      -0.017999     0.33153        0.26112         NaN             NaN             0.50324        0.016135    0.014973\
+    "Transition"    2.1993e+05    0.35        1     0.37106     0.27798         0.1543        0.11426      0.4713        0.28636         NaN             NaN             0.48008         0.34389     0.25036\
+    "High RA1"            5847       1        3      1.7185     0.49169        0.33003      -0.050375       1.909        0.56969         NaN             NaN             0.31508          0.1863     0.22653\
+    "High RA2"            1388       3        5      2.7034      2.5495         1.9455         0.6924       3.651         3.7515         NaN             NaN             0.60612         0.12587     0.18318\
+    "High RA3"            2650       5       12      4.4368      3.4757         3.4757         3.1426      7.2614         3.5611         NaN             NaN             0.38768         0.12766     0.12779\
+\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\
+\
+CPR + Green with s = 1.5, rtransition = 3\
+\
+RA prediction evaluation summary\
+--------------------------------\
+N valid pixels: 381944\
+RMSE: 1.1707\
+Median absolute error: 0.2157\
+Median bias: 0.1073\
+P90 absolute error: 0.4670\
+Balanced RMSE: 1.9226\
+High-RA F1 at threshold 1.50%: 0.6819\
+Global Spearman: 0.27\
+Global Pearson: 0.53\
+\
+Spatial roughness metrics:\
+True median roughness: 0.0772\
+Pred median roughness: 0.0219\
+Pred/true median roughness ratio: 0.2829\
+True roughness percentiles [50 75 90 95]: 0.0772 0.1397 0.2112 0.2642 \
+Pred roughness percentiles [50 75 90 95]: 0.0219 0.0946 0.2022 0.2751 \
+Pred/true roughness percentile ratios [50 75 90 95]: 0.2829 0.6773 0.9576 1.0410 \
+\
+Regime metrics:\
+       Regime           N         RAmin    RAmax     RMSE      MAE_median    Bias_median    Bias_mean    P90_absErr    RobustSigma    Coverage68    Width68_median    FracErr_median    Pearson     Spearman\
+    ____________    __________    _____    _____    _______    __________    ___________    _________    __________    ___________    __________    ______________    ______________    ________    ________\
+\
+    "Low RA"         1.509e+05       0     0.35     0.24263     0.17849       0.028222      -0.018333     0.33486        0.26117         NaN             NaN             0.50342        0.014255    0.012643\
+    "Transition"    2.1993e+05    0.35        1     0.36602     0.27891        0.15933        0.11672     0.47187        0.28442         NaN             NaN             0.48427         0.34482     0.24633\
+    "High RA1"            5847       1        3      1.6757     0.48618        0.33193       -0.02041      1.7884        0.57124         NaN             NaN             0.31311          0.1867     0.22506\
+    "High RA2"            1388       3        5      2.6937      2.5452         2.0089        0.82408       3.628         3.6933         NaN             NaN              0.6034         0.13145     0.18951\
+    "High RA3"            2650       5       12      4.6347      3.7646         3.7646         3.4032      7.5692         3.5826         NaN             NaN             0.59667          0.1259     0.12318\
+\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\
+\
+CPR + Green with s = 1.5, rtransition = 2\
+\
+RA prediction evaluation summary\
+--------------------------------\
+N valid pixels: 381944\
+RMSE: 1.1532\
+Median absolute error: 0.2131\
+Median bias: 0.1014\
+P90 absolute error: 0.4643\
+Balanced RMSE: 1.8622\
+High-RA F1 at threshold 1.50%: 0.6868\
+Global Spearman: 0.28\
+Global Pearson: 0.55\
+\
+Spatial roughness metrics:\
+True median roughness: 0.0772\
+Pred median roughness: 0.0204\
+Pred/true median roughness ratio: 0.2634\
+True roughness percentiles [50 75 90 95]: 0.0772 0.1397 0.2112 0.2642 \
+Pred roughness percentiles [50 75 90 95]: 0.0204 0.0896 0.2031 0.2798 \
+Pred/true roughness percentile ratios [50 75 90 95]: 0.2634 0.6411 0.9619 1.0589 \
+\
+Regime metrics:\
+       Regime           N         RAmin    RAmax     RMSE      MAE_median    Bias_median    Bias_mean    P90_absErr    RobustSigma    Coverage68    Width68_median    FracErr_median    Pearson     Spearman\
+    ____________    __________    _____    _____    _______    __________    ___________    _________    __________    ___________    __________    ______________    ______________    ________    ________\
+\
+    "Low RA"         1.509e+05       0     0.35     0.24312     0.17805       0.026537      -0.018082     0.32857        0.26073         NaN             NaN             0.50185        0.019231    0.018638\
+    "Transition"    2.1993e+05    0.35        1     0.38085     0.27654        0.14805        0.10998     0.47076         0.2886         NaN             NaN             0.47161          0.3415       0.255\
+    "High RA1"            5847       1        3      1.7962     0.50232        0.31956       -0.11296      2.5268        0.57149         NaN             NaN             0.32077         0.18843     0.22821\
+    "High RA2"            1388       3        5      2.7025      2.5397         1.8403        0.51498        3.66         3.8237         NaN             NaN             0.60295         0.13611     0.18997\
+    "High RA3"            2650       5       12      4.1882      3.0746         3.0746         2.8375      6.9191         3.5106         NaN             NaN              0.3435         0.12773     0.13537\
+\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\
+\
+CPR + Green with s = 1.5, rtransition = 1\
+\
+RA prediction evaluation summary\
+--------------------------------\
+N valid pixels: 381944\
+RMSE: 1.1284\
+Median absolute error: 0.2069\
+Median bias: 0.0866\
+P90 absolute error: 0.4620\
+Balanced RMSE: 1.7464\
+High-RA F1 at threshold 1.50%: 0.6874\
+Global Spearman: 0.30\
+Global Pearson: 0.57\
+\
+Spatial roughness metrics:\
+True median roughness: 0.0772\
+Pred median roughness: 0.0214\
+Pred/true median roughness ratio: 0.2770\
+True roughness percentiles [50 75 90 95]: 0.0772 0.1397 0.2112 0.2642 \
+Pred roughness percentiles [50 75 90 95]: 0.0214 0.0843 0.1985 0.2860 \
+Pred/true roughness percentile ratios [50 75 90 95]: 0.2770 0.6035 0.9401 1.0823 \
+\
+Regime metrics:\
+       Regime           N         RAmin    RAmax     RMSE      MAE_median    Bias_median    Bias_mean    P90_absErr    RobustSigma    Coverage68    Width68_median    FracErr_median    Pearson     Spearman\
+    ____________    __________    _____    _____    _______    __________    ___________    _________    __________    ___________    __________    ______________    ______________    ________    ________\
+\
+    "Low RA"         1.509e+05       0     0.35     0.24604     0.17422       0.015834      -0.023254     0.32665        0.25711         NaN             NaN             0.49386        0.028096    0.029648\
+    "Transition"    2.1993e+05    0.35        1     0.40274     0.26089        0.12906       0.093623     0.46892        0.29267         NaN             NaN             0.43342         0.34142     0.26681\
+    "High RA1"            5847       1        3      1.9232     0.51711        0.29713        -0.2457      4.2605        0.59014         NaN             NaN             0.33511         0.19685     0.22694\
+    "High RA2"            1388       3        5      2.6529      2.4807         1.5542        0.20167      3.6654           3.76         NaN             NaN             0.59115         0.16452     0.19986\
+    "High RA3"            2650       5       12       3.507      2.0665         1.8898         2.1373      5.6637         3.0363         NaN             NaN              0.2711         0.13964     0.15376\
+\
+\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\
+\
+CPR + Green with s = 1.5, rtransition = 2.5, BW = 0.5\
+\
+\
+RA prediction evaluation summary\
+--------------------------------\
+N valid pixels: 381944\
+RMSE: 1.1656\
+Median absolute error: 0.2106\
+Median bias: 0.1024\
+P90 absolute error: 0.4491\
+Balanced RMSE: 1.9392\
+High-RA F1 at threshold 1.50%: 0.6803\
+Global Spearman: 0.28\
+Global Pearson: 0.54\
+\
+Spatial roughness metrics:\
+True median roughness: 0.0772\
+Pred median roughness: 0.0184\
+Pred/true median roughness ratio: 0.2379\
+True roughness percentiles [50 75 90 95]: 0.0772 0.1397 0.2112 0.2642 \
+Pred roughness percentiles [50 75 90 95]: 0.0184 0.0791 0.1752 0.2503 \
+Pred/true roughness percentile ratios [50 75 90 95]: 0.2379 0.5659 0.8297 0.9473 \
+\
+Regime metrics:\
+       Regime           N         RAmin    RAmax     RMSE      MAE_median    Bias_median    Bias_mean    P90_absErr    RobustSigma    Coverage68    Width68_median    FracErr_median    Pearson     Spearman\
+    ____________    __________    _____    _____    _______    __________    ___________    _________    __________    ___________    __________    ______________    ______________    ________    ________\
+\
+    "Low RA"         1.509e+05       0     0.35     0.23559      0.1822       0.029322      -0.016663     0.32544         0.2691         NaN             NaN             0.50728        0.015178    0.014988\
+    "Transition"    2.1993e+05    0.35        1     0.35673     0.26377        0.14923        0.12412     0.45594        0.28675         NaN             NaN             0.44071         0.33088      0.2513\
+    "High RA1"            5847       1        3       1.741     0.54222        0.41288       0.041418      1.9638        0.53609         NaN             NaN             0.35082          0.1798     0.22764\
+    "High RA2"            1388       3        5       2.804      2.6783         2.1213        0.80475      3.6775         3.8888         NaN             NaN             0.63808          0.1215     0.18152\
+    "High RA3"            2650       5       12      4.5585      3.6279         3.6279         3.2349      7.4624         3.7286         NaN             NaN             0.38677         0.12858     0.12564\
+\
+CPR + Green with s = 1.5, rtransition = 2.5, BW = 0.75\
+\
+RA prediction evaluation summary\
+--------------------------------\
+N valid pixels: 381944\
+RMSE: 1.1621\
+Median absolute error: 0.2148\
+Median bias: 0.1049\
+P90 absolute error: 0.4655\
+Balanced RMSE: 1.8947\
+High-RA F1 at threshold 1.50%: 0.6842\
+Global Spearman: 0.27\
+Global Pearson: 0.54\
+\
+Spatial roughness metrics:\
+True median roughness: 0.0772\
+Pred median roughness: 0.0210\
+Pred/true median roughness ratio: 0.2713\
+True roughness percentiles [50 75 90 95]: 0.0772 0.1397 0.2112 0.2642 \
+Pred roughness percentiles [50 75 90 95]: 0.0210 0.0922 0.2031 0.2768 \
+Pred/true roughness percentile ratios [50 75 90 95]: 0.2713 0.6599 0.9615 1.0476 \
+\
+Regime metrics:\
+       Regime           N         RAmin    RAmax     RMSE      MAE_median    Bias_median    Bias_mean    P90_absErr    RobustSigma    Coverage68    Width68_median    FracErr_median    Pearson     Spearman\
+    ____________    __________    _____    _____    _______    __________    ___________    _________    __________    ___________    __________    ______________    ______________    ________    ________\
+\
+    "Low RA"         1.509e+05       0     0.35     0.24366     0.17858        0.02733      -0.017999     0.33153        0.26112         NaN             NaN             0.50324        0.016135    0.014973\
+    "Transition"    2.1993e+05    0.35        1     0.37106     0.27798         0.1543        0.11426      0.4713        0.28636         NaN             NaN             0.48008         0.34389     0.25036\
+    "High RA1"            5847       1        3      1.7185     0.49169        0.33003      -0.050375       1.909        0.56969         NaN             NaN             0.31508          0.1863     0.22653\
+    "High RA2"            1388       3        5      2.7034      2.5495         1.9455         0.6924       3.651         3.7515         NaN             NaN             0.60612         0.12587     0.18318\
+    "High RA3"            2650       5       12      4.4368      3.4757         3.4757         3.1426      7.2614         3.5611         NaN             NaN             0.38768         0.12766     0.12779}

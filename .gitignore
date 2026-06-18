@@ -1,0 +1,4 @@
+.DS_Store
+/src/__pycache__
+/.idea
+data/GiordanoBruno_analysis.csv
