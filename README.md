@@ -71,6 +71,13 @@ python3 src/hyperparameter_search.py
 
 By default, the current search space expands to 180 candidates.
 
+Best fit so far:
+```
+Top candidates:
+1. stage=direct score=1.5138 balancedRMSE=1.5138 RMSE=0.7011 candidate={'sigmaFloor': 0.02, 'windowSize': 3, 'spatialPriorMode': 'direct', 'secondPassWindowSize': 5, 's': 1.4039780521262002, 'sigmaSpatial': 0.6997942386831275, 'nu': 2.001371742112483, 'RA0': 0.977914951989026}
+2. stage=powell score=1.5139 balancedRMSE=1.5139 RMSE=0.7011 candidate={'sigmaFloor': 0.02, 'windowSize': 3, 'spatialPriorMode': 'direct', 'secondPassWindowSize': 5, 's': 1.4043882431876906, 'sigmaSpatial': 0.69942418638235, 'nu': 2.000560067164145, 'RA0': 0.9801818791388899}
+```
+
 ## Data layout
 
 The current Python code expects a flattened CSV with these columns:
@@ -81,8 +88,6 @@ row,col,miniRF_1,miniRF_2,miniRF_3,miniRF_4,miniRF_5,miniRF_6,ra
 
 The repository currently includes:
 
-- `data/GiordanoBruno_analysis.csv` as the main analysis input used by the scripts
-- `data/GiordanoBruno.mat` as the original source file kept for reference
 - `data/ManualTuning_OptParam_RAFromRadarMdl.rtf` as manual tuning notes
 - `data/test_small.csv` as a smaller dataset artifact from the earlier workflow
 
@@ -106,8 +111,6 @@ src/
   hyperparameter_search.py
   mat_to_csv.py
 data/
-  GiordanoBruno_analysis.csv
-  GiordanoBruno.mat
   ManualTuning_OptParam_RAFromRadarMdl.rtf
   test_small.csv
 ```
