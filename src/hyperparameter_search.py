@@ -15,7 +15,7 @@ Array = np.ndarray
 data_path = Path(__file__).resolve().parents[1] / "data/GiordanoBruno_analysis.csv"
 
 # number of worker threads for the prediction pipeline
-n_workers = 10
+n_workers = 20
 
 # number of row-wise spatial blocks
 tile_rows = 4
@@ -34,6 +34,9 @@ roughness_weight = 0.0
 
 # penalty weight for interval coverage mismatch
 coverage_weight = 0.0
+
+# penalty weight for dropped predictions on the finite reference mask
+valid_fraction_weight = 1.0
 
 # target empirical coverage for the 68 percent interval
 coverage_target = 0.68
@@ -75,7 +78,7 @@ direct_eps = 1e-4
 direct_maxfun = None
 
 # maximum number of direct iterations
-direct_maxiter = 200
+direct_maxiter = 100
 
 # whether direct should prefer locally biased subdivision
 direct_locally_biased = True
@@ -264,6 +267,13 @@ def score_metrics(metrics: dict[str, Any], objective: str = "balancedRMSE", roug
     return score
 
 
+def apply_valid_fraction_penalty(score: float, pred_valid_fraction: float, valid_fraction_weight: float) -> float:
+    """Add a penalty for predictions dropped from the finite reference mask."""
+    if valid_fraction_weight != 0.0 and np.isfinite(pred_valid_fraction):
+        score += valid_fraction_weight * (1.0 - pred_valid_fraction)
+    return score
+
+
 def evaluate_prediction_on_blocks(ra_true: Array, ra_pred: Array, ra_low: Array | None, ra_high: Array | None,
                                   blocks: list[dict[str, Any]], eval_options: dict[str, Any],
                                   objective: str, roughness_weight: float,
@@ -333,7 +343,8 @@ def evaluate_candidate_on_preprocessed(s: dict[str, Array], candidate: dict[str,
                                        blocks: list[dict[str, Any]], firstpass_cache: dict[tuple[Any, ...], Array],
                                        n_workers: int | None = None, objective: str = "balancedRMSE",
                                        roughness_weight: float = 0.0, coverage_weight: float = 0.0,
-                                       coverage_target: float = 0.68, candidate_index: int | None = None) -> dict[str, Any]:
+                                       coverage_target: float = 0.68, valid_fraction_weight: float = 1.0,
+                                       candidate_index: int | None = None) -> dict[str, Any]:
     """Evaluate one hyperparameter candidate on the preprocessed dataset."""
     pipeline_options = apply_candidate_to_pipeline_options(base_options, candidate)
     firstpass_key = make_firstpass_cache_key(pipeline_options["firstpass"])
@@ -376,6 +387,21 @@ def evaluate_candidate_on_preprocessed(s: dict[str, Array], candidate: dict[str,
         coverage_target=coverage_target,
     )
     summary = summarize_fold_results(fold_results)
+    pred_valid_fraction = float(full_metrics["global"]["pred_valid_fraction"])
+    summary["mean_score_unpenalized"] = float(summary["mean_score"])
+    summary["pred_valid_fraction"] = pred_valid_fraction
+    summary["pred_valid_count"] = int(full_metrics["global"]["pred_valid_count"])
+    summary["ref_valid_count"] = int(full_metrics["global"]["ref_valid_count"])
+    summary["valid_fraction_penalty"] = (
+        float(valid_fraction_weight * (1.0 - pred_valid_fraction))
+        if valid_fraction_weight != 0.0 and np.isfinite(pred_valid_fraction)
+        else 0.0
+    )
+    summary["mean_score"] = apply_valid_fraction_penalty(
+        float(summary["mean_score"]),
+        pred_valid_fraction,
+        valid_fraction_weight,
+    )
     return {
         "candidate_index": candidate_index,
         "candidate": dict(candidate),
@@ -388,7 +414,8 @@ def evaluate_candidate_on_preprocessed(s: dict[str, Array], candidate: dict[str,
 def search_hyperparameters_on_preprocessed(s: dict[str, Array], candidates: list[dict[str, Any]], n_workers: int | None = None,
                                            tile_rows: int = 4, tile_cols: int = 4, min_valid_pixels: int = 1000,
                                            objective: str = "balancedRMSE", roughness_weight: float = 0.0,
-                                           coverage_weight: float = 0.0, coverage_target: float = 0.68) -> dict[str, Any]:
+                                           coverage_weight: float = 0.0, coverage_target: float = 0.68,
+                                           valid_fraction_weight: float = 1.0) -> dict[str, Any]:
     """Search candidate settings on an already loaded and preprocessed dataset"""
     base_options = pr.build_default_pipeline_options()
     blocks = make_spatial_blocks(s["ra"], tile_rows=tile_rows, tile_cols=tile_cols, min_valid_pixels=min_valid_pixels)
@@ -410,13 +437,16 @@ def search_hyperparameters_on_preprocessed(s: dict[str, Array], candidates: list
             roughness_weight=roughness_weight,
             coverage_weight=coverage_weight,
             coverage_target=coverage_target,
+            valid_fraction_weight=valid_fraction_weight,
             candidate_index=idx,
         )
         results.append(result)
 
         print(
             f"[{idx}/{len(candidates)}] score={result['summary']['mean_score']:.4f} "
-            f"balancedRMSE={result['summary']['mean_balancedRMSE']:.4f} candidate={candidate}"
+            f"balancedRMSE={result['summary']['mean_balancedRMSE']:.4f} "
+            f"predValid={result['summary']['pred_valid_fraction']:.4f} candidate={candidate}",
+            flush=True,
         )
 
     results.sort(key=lambda item: item["summary"]["mean_score"])
@@ -426,7 +456,8 @@ def search_hyperparameters_on_preprocessed(s: dict[str, Array], candidates: list
 def search_hyperparameters(data_path: str | Path, candidates: list[dict[str, Any]], n_workers: int | None = None,
                            tile_rows: int = 4, tile_cols: int = 4, min_valid_pixels: int = 1000,
                            objective: str = "balancedRMSE", roughness_weight: float = 0.0,
-                           coverage_weight: float = 0.0, coverage_target: float = 0.68) -> dict[str, Any]:
+                           coverage_weight: float = 0.0, coverage_target: float = 0.68,
+                           valid_fraction_weight: float = 1.0) -> dict[str, Any]:
     """Load a dataset, preprocess it, and run the blocked hyperparameter search"""
     data = pr.load_analysis_dataset(data_path, pr.ANALYSIS_VARIABLES)
     s = pr.preprocess_minirf_data(data)
@@ -441,13 +472,15 @@ def search_hyperparameters(data_path: str | Path, candidates: list[dict[str, Any
         roughness_weight=roughness_weight,
         coverage_weight=coverage_weight,
         coverage_target=coverage_target,
+        valid_fraction_weight=valid_fraction_weight,
     )
 
 
 def optimize_hyperparameters_on_preprocessed(s: dict[str, Array], n_workers: int | None = None,
                                              tile_rows: int = 4, tile_cols: int = 4, min_valid_pixels: int = 1000,
                                              objective: str = "balancedRMSE", roughness_weight: float = 0.0,
-                                             coverage_weight: float = 0.0, coverage_target: float = 0.68) -> dict[str, Any]:
+                                             coverage_weight: float = 0.0, coverage_target: float = 0.68,
+                                             valid_fraction_weight: float = 1.0) -> dict[str, Any]:
     """Optimize the main continuous hyperparameters with direct plus Powell polish."""
     base_options = pr.build_default_pipeline_options()
     blocks = make_spatial_blocks(s["ra"], tile_rows=tile_rows, tile_cols=tile_cols, min_valid_pixels=min_valid_pixels)
@@ -476,6 +509,7 @@ def optimize_hyperparameters_on_preprocessed(s: dict[str, Array], n_workers: int
                 roughness_weight=roughness_weight,
                 coverage_weight=coverage_weight,
                 coverage_target=coverage_target,
+                valid_fraction_weight=valid_fraction_weight,
             )
         return candidate, result_cache[candidate_key]
 
@@ -487,7 +521,9 @@ def optimize_hyperparameters_on_preprocessed(s: dict[str, Array], n_workers: int
             eval_state["best_score"] = score
             print(
                 f"[eval {eval_state['count']}] new best score={score:.4f} "
-                f"balancedRMSE={result['summary']['mean_balancedRMSE']:.4f} candidate={candidate}"
+                f"balancedRMSE={result['summary']['mean_balancedRMSE']:.4f} "
+                f"predValid={result['summary']['pred_valid_fraction']:.4f} candidate={candidate}",
+                flush=True,
             )
         return score
 
@@ -538,7 +574,8 @@ def optimize_hyperparameters_on_preprocessed(s: dict[str, Array], n_workers: int
 def optimize_hyperparameters(data_path: str | Path, n_workers: int | None = None,
                              tile_rows: int = 4, tile_cols: int = 4, min_valid_pixels: int = 1000,
                              objective: str = "balancedRMSE", roughness_weight: float = 0.0,
-                             coverage_weight: float = 0.0, coverage_target: float = 0.68) -> dict[str, Any]:
+                             coverage_weight: float = 0.0, coverage_target: float = 0.68,
+                             valid_fraction_weight: float = 1.0) -> dict[str, Any]:
     """Load a dataset, preprocess it, and optimize the main continuous hyperparameters."""
     data = pr.load_analysis_dataset(data_path, pr.ANALYSIS_VARIABLES)
     s = pr.preprocess_minirf_data(data)
@@ -552,6 +589,7 @@ def optimize_hyperparameters(data_path: str | Path, n_workers: int | None = None
         roughness_weight=roughness_weight,
         coverage_weight=coverage_weight,
         coverage_target=coverage_target,
+        valid_fraction_weight=valid_fraction_weight,
     )
 
 
@@ -568,9 +606,14 @@ def write_search_results_csv(search_output: dict[str, Any], csv_path: str | Path
                 "search_stage",
                 "candidate_index",
                 "mean_score",
+                "mean_score_unpenalized",
                 "std_score",
                 "mean_balancedRMSE",
                 "mean_RMSE",
+                "pred_valid_fraction",
+                "pred_valid_count",
+                "ref_valid_count",
+                "valid_fraction_penalty",
                 "mean_coverage68",
                 "mean_roughness_ratio",
                 "n_blocks",
@@ -588,9 +631,14 @@ def write_search_results_csv(search_output: dict[str, Any], csv_path: str | Path
                     result.get("search_stage", ""),
                     result["candidate_index"],
                     summary["mean_score"],
+                    summary.get("mean_score_unpenalized", ""),
                     summary["std_score"],
                     summary["mean_balancedRMSE"],
                     summary["mean_RMSE"],
+                    summary.get("pred_valid_fraction", ""),
+                    summary.get("pred_valid_count", ""),
+                    summary.get("ref_valid_count", ""),
+                    summary.get("valid_fraction_penalty", ""),
                     summary["mean_coverage68"],
                     summary["mean_roughness_ratio"],
                     summary["n_blocks"],
@@ -607,7 +655,7 @@ def write_search_results_csv(search_output: dict[str, Any], csv_path: str | Path
 def main() -> None:
     parameter_specs = build_optimization_parameters()
     bounds_text = ", ".join([f"{name}=[{lower}, {upper}]" for name, lower, upper in parameter_specs])
-    print(f"Running direct global search with Powell polish on {bounds_text}.")
+    print(f"Running direct global search with Powell polish on {bounds_text}.", flush=True)
 
     search_output = optimize_hyperparameters(
         data_path,
@@ -619,21 +667,24 @@ def main() -> None:
         roughness_weight=roughness_weight,
         coverage_weight=coverage_weight,
         coverage_target=coverage_target,
+        valid_fraction_weight=valid_fraction_weight,
     )
 
-    print("\nTop candidates:")
+    print("\nTop candidates:", flush=True)
     for rank, result in enumerate(search_output["results"][:top_k], start=1):
         summary = result["summary"]
         print(
             f"{rank}. stage={result.get('search_stage', 'search')} "
             f"score={summary['mean_score']:.4f} "
             f"balancedRMSE={summary['mean_balancedRMSE']:.4f} "
-            f"RMSE={summary['mean_RMSE']:.4f} candidate={result['candidate']}"
+            f"predValid={summary['pred_valid_fraction']:.4f} "
+            f"RMSE={summary['mean_RMSE']:.4f} candidate={result['candidate']}",
+            flush=True,
         )
 
     if output_csv:
         out_path = write_search_results_csv(search_output, output_csv)
-        print(f"\nWrote ranked results to {out_path}")
+        print(f"\nWrote ranked results to {out_path}", flush=True)
 
 
 if __name__ == "__main__":

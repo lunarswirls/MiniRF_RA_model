@@ -1046,17 +1046,26 @@ def evaluate_ra_prediction(ra_true: Array, ra_pred: Array, argopt: dict[str, Any
         raise ValueError("ra_true and ra_pred must have the same shape.")
 
     orig_size = ra_true.shape
-    ra_true_v = np.asarray(ra_true, dtype=float).reshape(-1, order="F")
-    ra_pred_v = np.asarray(ra_pred, dtype=float).reshape(-1, order="F")
+    ra_true_flat = np.asarray(ra_true, dtype=float).reshape(-1, order="F")
+    ra_pred_flat = np.asarray(ra_pred, dtype=float).reshape(-1, order="F")
 
-    valid = np.isfinite(ra_true_v) & np.isfinite(ra_pred_v)
-    ra_true_v = ra_true_v[valid]
-    ra_pred_v = ra_pred_v[valid]
+    ref_valid = np.isfinite(ra_true_flat)
+    pred_valid_on_ref = ref_valid & np.isfinite(ra_pred_flat)
+    n_ref_valid = int(np.sum(ref_valid))
+    n_pred_valid = int(np.sum(pred_valid_on_ref))
+    pred_valid_fraction = float(n_pred_valid / n_ref_valid) if n_ref_valid > 0 else float("nan")
+
+    valid = pred_valid_on_ref
+    ra_true_v = ra_true_flat[valid]
+    ra_pred_v = ra_pred_flat[valid]
 
     resid = ra_true_v - ra_pred_v
     abs_err = np.abs(resid)
 
     metrics: dict[str, Any] = {"N": int(ra_true_v.size), "originalSize": orig_size, "global": {}, "highRA": {}, "spatial": {}}
+    metrics["global"]["ref_valid_count"] = n_ref_valid
+    metrics["global"]["pred_valid_count"] = n_pred_valid
+    metrics["global"]["pred_valid_fraction"] = pred_valid_fraction
 
     metrics["global"]["RMSE"] = float(np.sqrt(np.nanmean(resid**2)))
     metrics["global"]["MAE_median"] = float(np.nanmedian(abs_err))
