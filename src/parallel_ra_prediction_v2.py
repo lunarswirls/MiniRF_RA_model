@@ -14,7 +14,13 @@ from scipy.io import loadmat
 import matplotlib.pyplot as plt
 from typing import Any, Callable
 
-
+"""
+candidate={'sigmaFloor': 0.02, 
+'windowSize': 3, 
+'spatialPriorMode': 'direct', 
+'secondPassWindowSize': 5, 
+'likelihoodMode': 'jointGaussian', 's': 1.0720164609053497, 'sigmaSpatial': 1.2484567901234567, 'RA0': 0.9600823045267489}
+"""
 Array = np.ndarray
 REALMIN = np.finfo(float).tiny
 ANALYSIS_VARIABLES = ["miniRF_1", "miniRF_2", "miniRF_3", "miniRF_4", "miniRF_5", "miniRF_6", "ra"]

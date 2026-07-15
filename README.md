@@ -154,6 +154,25 @@ Running it from the repository root:
 python src/compare_ra_distribution_lookup_vs_smooth_v2.py
 ```
 
+### `src/test_best_fit_v2.py`
+
+This script reruns one fixed `v2` candidate from the direct-plus-Powell search and prints the same score components used by the search. It currently:
+
+- Hardcodes one requested best-fit candidate at the top of the file.
+- Recomputes the default `v2` candidate first so the best-fit run can be compared against the baseline.
+- Reuses the same blockwise scoring code from `hyperparameter_search_v2.py`, including the completeness penalty and NaN-growth rejection rule.
+- Reuses the cached first-pass result for the full-map rerun.
+- Prints both the compact search summary and the full evaluation report.
+- Saves candidate-specific map and histogram figures:
+  - `output/best_fit_v2_ra_prediction_map_sigma.png`
+  - `output/best_fit_v2_ra_prediction_histograms.png`
+
+Running it from the repository root:
+
+```bash
+python src/test_best_fit_v2.py
+```
+
 ## Data layout
 
 The earlier Python translation expects a flattened CSV with these columns:
@@ -193,6 +212,7 @@ src/
   hyperparameter_search_v2.py
   covariance_diagnostics.py
   compare_ra_distribution_lookup_vs_smooth_v2.py
+  test_best_fit_v2.py
 data/
   GiordanoBruno.mat
   GiordanoBruno_analysis.csv
